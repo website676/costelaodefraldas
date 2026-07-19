@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chá de Fraldas | Antonela & Victória</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allura&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'rosa-antigo': '#C98A98',
+                        'off-white': '#F8F4EF',
+                        'verde-salvia': '#A9B89E',
+                        'marrom-madeira': '#7A5B45',
+                        'bege-linho': '#E9DFCF'
+                    },
+                    fontFamily: {
+                        'title': ['"Playfair Display"', 'serif'],
+                        'script': ['"Allura"', 'cursive'],
+                        'body': ['"Montserrat"', 'sans-serif']
+                    },
+                    backgroundImage: {
+                        'paper-texture': "url('data:image/svg+xml,%3Csvg width=\\'20\\' height=\\'20\\' viewBox=\\'0 0 20 20\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cg fill=\\'%23e9dfcf\\' fill-opacity=\\'0.4\\' fill-rule=\\'evenodd\\'%3E%3Ccircle cx=\\'3\\' cy=\\'3\\' r=\\'3\\'/%3E%3Ccircle cx=\\'13\\' cy=\\'13\\' r=\\'3\\'/%3E%3C/g%3E%3C/svg%3E')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #F8F4EF;
+            color: #7A5B45;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .watercolor-leaf {
+            opacity: 0.15;
+            position: absolute;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .card-shadow {
+            box-shadow: 0 10px 30px -10px rgba(122, 91, 69, 0.15);
+        }
+
+        .btn-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .btn-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(201, 138, 152, 0.3);
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        .toast-enter {
+            animation: slideInUp 0.3s ease-out forwards;
+        }
+        .toast-exit {
+            animation: fadeOut 0.5s ease-in forwards;
+        }
+    </style>
+</head>
+<body class="font-body text-marrom-madeira antialiased relative min-h-screen flex flex-col">
+
+    <svg class="watercolor-leaf top-0 left-0 w-64 h-64 md:w-96 md:h-96 text-verde-salvia fill-current transform -translate-x-1/2 -translate-y-1/2" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path d="M45.7,-76.4C58.9,-69.3,68.9,-54.8,77.5,-40.4C86.1,-26,93.4,-11.6,90.2,1.3C87,14.2,73.4,25.7,62.3,37.3C51.2,48.9,42.5,60.6,30.3,67.6C18.1,74.6,2.4,76.9,-12.3,74.7C-26.9,72.4,-40.5,65.6,-53.4,56.5C-66.3,47.4,-78.6,36,-83.4,21.6C-88.3,7.2,-85.7,-10.2,-77.8,-24.5C-69.8,-38.8,-56.6,-50,-43.3,-57.5C-30,-65,-15,-68.8,1.4,-70.7C17.7,-72.6,32.5,-83.5,45.7,-76.4Z" transform="translate(100 100)" />
+    </svg>
+    <svg class="watercolor-leaf bottom-0 right-0 w-80 h-80 text-rosa-antigo fill-current transform translate-x-1/3 translate-y-1/3" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path d="M48.2,-71.7C61.8,-63.5,71.5,-48.6,78.5,-32.8C85.5,-17,89.8,-0.4,85.6,14.3C81.3,28.9,68.5,41.6,54.6,51.8C40.6,62,25.6,69.7,9.9,71.6C-5.7,73.4,-22,69.3,-36.8,61C-51.6,52.7,-64.8,40.1,-72.7,24.8C-80.5,9.5,-83.1,-8.5,-77.1,-24.1C-71,-39.7,-56.2,-52.8,-41.6,-61.2C-27,-69.6,-13.5,-73.3,2.4,-76.6C18.3,-79.8,34.7,-79.8,48.2,-71.7Z" transform="translate(100 100)" />
+    </svg>
+
+    <header class="w-full pt-16 pb-12 px-6 text-center relative z-10 flex-grow-0">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="font-title text-verde-salvia text-xl md:text-2xl tracking-widest uppercase mb-4">Costelão de Fraldas</h2>
+            <h1 class="font-script text-rosa-antigo text-7xl md:text-9xl leading-none mb-6">
+                Antonela <span class="text-marrom-madeira text-5xl md:text-7xl mx-2">&amp;</span> Victória
+            </h1>
+            
+            <div class="w-24 h-px bg-verde-salvia mx-auto my-8 opacity-50"></div>
+            
+            <p class="font-title italic text-lg md:text-xl text-marrom-madeira leading-relaxed px-4">
+                Entre o fogo de chão, o chimarrão e os abraços de quem amamos… <br class="hidden md:block">
+                vamos celebrar a chegada das nossas meninas.
+            </p>
+        </div>
+    </header>
+
+    <main class="flex-grow z-10">
+        
+        <section class="max-w-5xl mx-auto px-6 py-12">
+            <h3 class="font-title text-3xl text-center mb-10 text-marrom-madeira">A espera das gêmeas</h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+                <div class="aspect-square rounded-2xl overflow-hidden card-shadow">
+                    <img src="https://drive.google.com/thumbnail?id=1qhoEMjorzEEt2OOO4up1_y-AJ5KZ-z1t&sz=w800" referrerpolicy="no-referrer" onerror="this.src='https://placehold.co/600x600/E9DFCF/7A5B45?text=Amor+e+Espera'" alt="Foto Casal 1" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="aspect-square rounded-2xl overflow-hidden card-shadow">
+                    <img src="https://drive.google.com/thumbnail?id=1XW7cwE5uudPPS8-P2-irdm8GceBqeRUN&sz=w800" referrerpolicy="no-referrer" onerror="this.src='https://placehold.co/600x600/A9B89E/F8F4EF?text=A+Doce+Espera'" alt="Foto Casal 2" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="aspect-square rounded-2xl overflow-hidden card-shadow">
+                    <img src="https://drive.google.com/thumbnail?id=1q78BBOIxpr_xIfPYuYeG-ZgoHKww5efX&sz=w800" referrerpolicy="no-referrer" onerror="this.src='https://placehold.co/600x600/C98A98/F8F4EF?text=Nossa+Familia'" alt="Foto Casal 3" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="aspect-square rounded-2xl overflow-hidden card-shadow hidden md:block">
+                    <img src="https://drive.google.com/thumbnail?id=1WV6EKTDRk6JAjuAmRb2yhzLnPc6SndBw&sz=w800" referrerpolicy="no-referrer" onerror="this.src='https://placehold.co/600x600/E9DFCF/7A5B45?text=Amor'" alt="Foto Casal 4" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="aspect-square rounded-2xl overflow-hidden card-shadow hidden md:block">
+                    <img src="https://drive.google.com/thumbnail?id=197q-jWi1GKTmT3iRc7yspL9fX7iklZps&sz=w800" referrerpolicy="no-referrer" onerror="this.src='https://placehold.co/600x600/A9B89E/F8F4EF?text=Felicidade'" alt="Foto Casal 5" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="aspect-square rounded-2xl overflow-hidden card-shadow hidden md:block">
+                    <img src="https://drive.google.com/thumbnail?id=1nzXLmTsSaI7QbtFggwMxBRCwov65xt4K&sz=w800" referrerpolicy="no-referrer" onerror="this.src='https://placehold.co/600x600/C98A98/F8F4EF?text=Natureza+e+Paz'" alt="Foto Casal 6" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-4xl mx-auto px-6 py-12">
+            <div class="bg-bege-linho bg-paper-texture rounded-[2rem] p-8 md:p-12 card-shadow relative overflow-hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <!-- Detalhes -->
+                    <div>
+                        <h3 class="font-title text-2xl md:text-3xl mb-6 flex items-center gap-3">
+                            <i class="ph ph-calendar-heart text-rosa-antigo text-3xl"></i>
+                            O Encontro
+                        </h3>
+                        
+                        <ul class="space-y-5">
+                            <li class="flex items-start gap-4">
+                                <i class="ph ph-calendar-blank text-verde-salvia text-xl mt-1"></i>
+                                <div>
+                                    <strong class="block font-medium">Data</strong>
+                                    <span class="text-marrom-madeira/80">01 de Agosto de 2026</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class="ph ph-clock text-verde-salvia text-xl mt-1"></i>
+                                <div>
+                                    <strong class="block font-medium">Horário</strong>
+                                    <span class="text-marrom-madeira/80">A partir das 11h</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class="ph ph-map-pin text-verde-salvia text-xl mt-1"></i>
+                                <div>
+                                    <strong class="block font-medium">Local</strong>
+                                    <span class="text-marrom-madeira/80">Rover Ranch<br>Endereço: km 8 Dourado</span>
+                                    <a href="https://www.google.com/maps?q=-27.57853889465332,-52.27831268310547&z=17&hl=pt-BR" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 text-sm bg-rosa-antigo text-white px-4 py-1.5 rounded-full btn-hover">
+                                        Ver no Mapa
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <div class="mt-8 space-y-3 p-4 bg-off-white/50 rounded-xl border border-marrom-madeira/10">
+                            <p class="flex items-center gap-2 text-sm text-marrom-madeira/80">
+                                <i class="ph ph-cloud-rain text-rosa-antigo text-lg"></i>
+                                Em caso de chuva, o evento será remarcado.
+                            </p>
+                            <p class="flex items-center gap-2 text-sm text-marrom-madeira/80">
+                                <i class="ph ph-armchair text-verde-salvia text-lg"></i>
+                                Pedimos a gentileza que levem cadeiras de praia.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Cardápio -->
+                    <div>
+                        <h3 class="font-title text-2xl md:text-3xl mb-6 flex items-center gap-3">
+                            <i class="ph ph-fire text-rosa-antigo text-3xl"></i>
+                            O Cardápio
+                        </h3>
+                        
+                        <div class="bg-off-white rounded-2xl p-6 border border-verde-salvia/20">
+                            
+                            <!-- Imagem do Cardápio adicionada aqui -->
+                            <div class="mb-6 rounded-xl overflow-hidden h-40 shadow-sm">
+                                <img src="https://drive.google.com/thumbnail?id=1givoW1wm85puII6TpSmNYVc2q-YwK3vv&sz=w600" referrerpolicy="no-referrer" alt="Churrasco" class="w-full h-full object-cover">
+                            </div>
+
+                            <!-- Comidas -->
+                            <div class="mb-6">
+                                <h4 class="font-title text-xl text-marrom-madeira mb-3 border-b border-verde-salvia/30 pb-1">Comidas</h4>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center gap-3">
+                                        <div class="w-2 h-2 rounded-full bg-verde-salvia"></div>
+                                        <span class="font-medium text-lg">Costelão de Gado</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <div class="w-2 h-2 rounded-full bg-verde-salvia"></div>
+                                        <span class="font-medium text-lg">Costelão de Cordeiro</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <div class="w-2 h-2 rounded-full bg-verde-salvia"></div>
+                                        <span class="font-medium text-lg">Saladas Frescas</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <div class="w-2 h-2 rounded-full bg-verde-salvia"></div>
+                                        <span class="font-medium text-lg">Mandioca</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <div class="w-2 h-2 rounded-full bg-verde-salvia"></div>
+                                        <span class="font-medium text-lg">Farofa Campeira</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Bebidas -->
+                            <div>
+                                <h4 class="font-title text-xl text-marrom-madeira mb-3 border-b border-verde-salvia/30 pb-1">Bebidas</h4>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center gap-3">
+                                        <div class="w-2 h-2 rounded-full bg-verde-salvia"></div>
+                                        <span class="font-medium text-lg">Chopp</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <div class="w-2 h-2 rounded-full bg-verde-salvia"></div>
+                                        <span class="font-medium text-lg">Água</span>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <div class="w-2 h-2 rounded-full bg-verde-salvia"></div>
+                                        <span class="font-medium text-lg">Refrigerante</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="mt-8 text-center text-rosa-antigo opacity-70 flex justify-center items-center gap-2">
+                                <i class="ph ph-coffee"></i> <span class="text-xs uppercase tracking-widest font-semibold">Muito Chimarrão & Prosa - Traga o seu Chima</span> <i class="ph ph-coffee"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-4xl mx-auto px-6 py-8" id="presenca">
+            <div class="bg-white rounded-[2rem] p-8 md:p-12 card-shadow text-center border-t-4 border-verde-salvia relative overflow-hidden">
+                <i class="ph ph-envelope-simple-open absolute -right-10 -bottom-10 text-9xl text-verde-salvia/5 transform rotate-12 pointer-events-none"></i>
+                
+                <div class="w-16 h-16 bg-verde-salvia/10 text-verde-salvia rounded-full flex items-center justify-center text-3xl mx-auto mb-6 relative z-10">
+                    <i class="ph ph-check-square-offset"></i>
+                </div>
+                
+                <h2 class="font-title text-3xl md:text-4xl mb-4 text-marrom-madeira relative z-10">Confirmação de Presença</h2>
+                <p class="text-marrom-madeira/80 mb-8 max-w-lg mx-auto leading-relaxed relative z-10">
+                    A sua presença é o que tornará esse dia ainda mais especial! Para nos ajudar a preparar tudo com o maior carinho e organização, pedimos que confirme se poderá comparecer clicando no botão abaixo.
+                </p>
+                
+                <a href="https://forms.gle/4Fp8iqXtLa37ob5g9" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 bg-verde-salvia text-white font-medium py-4 px-10 rounded-full btn-hover shadow-lg shadow-verde-salvia/30 text-lg relative z-10">
+                    <i class="ph ph-list-checks text-2xl"></i>
+                    Confirmar Presença
+                </a>
+            </div>
+        </section>
+
+        <section class="max-w-6xl mx-auto px-6 py-12" id="presentes">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="font-title text-4xl md:text-5xl mb-6 text-marrom-madeira">Lista de Presentes</h2>
+                <div class="bg-white/60 backdrop-blur-sm p-6 md:p-8 rounded-3xl card-shadow text-left space-y-4 text-marrom-madeira/80 leading-relaxed">
+                    <p>Estamos preparando tudo com muito amor para a chegada das nossas meninas! Recentemente, no curso de gestantes, aprendemos que os bebês podem apresentar alergias a certas marcas de fralda. Por isso, escolhemos a <strong>Pampers Confort Sec</strong> como nossa grande preferida e primeira opção.</p>
+                    <p>Para garantir que faremos o estoque perfeito e evitar o desperdício caso elas não se adaptem, optamos por receber os presentes de forma virtual (em formato de cotas). Assim, se precisarmos mudar de marca no futuro, o carinho de vocês estará guardado e bem aproveitado!</p>
+                    <p>Além disso, deixamos algumas opções de cotas para os itens maiores que ainda estamos providenciando para o quartinho e para o enxoval. Fiquem à vontade para escolher o combo que preferirem. Agradecemos muito por estarem ao nosso lado nesse momento tão especial! 💕</p>
+                </div>
+            </div>
+
+            <div class="mb-16">
+                <h3 class="font-title text-2xl text-center mb-8 flex items-center justify-center gap-3">
+                    <i class="ph ph-baby text-rosa-antigo"></i>
+                    Combos de Fraldas (Pampers Confort Sec)
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Combo 1 -->
+                    <div class="bg-white rounded-[2rem] p-6 card-shadow flex flex-col items-center text-center border-t-4 border-rosa-antigo relative overflow-hidden group">
+                        <div class="w-32 h-32 rounded-xl overflow-hidden mb-4 shadow-sm group-hover:scale-105 transition-transform">
+                            <img src="https://drive.google.com/thumbnail?id=1ZBtuTuZup4ybaYYHfp1dOe9bJklrtz2d&sz=w400" referrerpolicy="no-referrer" alt="Combo 1" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-title text-xl font-semibold mb-1">Combo Fralda 01 <span class="block text-sm font-sans font-normal text-marrom-madeira/60">(Iniciante)</span></h4>
+                        <div class="font-bold text-verde-salvia text-xl mb-2">R$ 140,00</div>
+                        <p class="text-sm text-marrom-madeira/70 mb-6 flex-grow">Equivalente a 2 pacotes de fralda (1 para cada bebê).</p>
+                        <button onclick="openPixModal('Combo Fralda 01 (R$ 140,00)')" class="w-full bg-verde-salvia text-white font-medium py-3 rounded-xl btn-hover">Presentear</button>
+                    </div>
+
+                    <!-- Combo 2 -->
+                    <div class="bg-white rounded-[2rem] p-6 card-shadow flex flex-col items-center text-center border-t-4 border-rosa-antigo relative overflow-hidden group">
+                        <div class="w-32 h-32 rounded-xl overflow-hidden mb-4 shadow-sm group-hover:scale-105 transition-transform">
+                            <img src="https://drive.google.com/thumbnail?id=1CLOP3mF7kLqa-bK8RmzLinYLviRrGhuy&sz=w400" referrerpolicy="no-referrer" alt="Combo 2" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-title text-xl font-semibold mb-1">Combo Fralda 02</h4>
+                        <div class="font-bold text-verde-salvia text-xl mb-2">R$ 280,00</div>
+                        <p class="text-sm text-marrom-madeira/70 mb-6 flex-grow">Equivalente a 4 pacotes de fralda.</p>
+                        <button onclick="openPixModal('Combo Fralda 02 (R$ 280,00)')" class="w-full bg-verde-salvia text-white font-medium py-3 rounded-xl btn-hover">Presentear</button>
+                    </div>
+
+                    <!-- Combo 3 -->
+                    <div class="bg-white rounded-[2rem] p-6 card-shadow flex flex-col items-center text-center border-t-4 border-rosa-antigo relative overflow-hidden group">
+                        <div class="w-32 h-32 rounded-xl overflow-hidden mb-4 shadow-sm group-hover:scale-105 transition-transform">
+                            <img src="https://drive.google.com/thumbnail?id=1VtJKIhrX9MEm7Xre6_NRi9jNnppPqBZn&sz=w400" referrerpolicy="no-referrer" alt="Combo 3" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-title text-xl font-semibold mb-1">Combo Fralda 03</h4>
+                        <div class="font-bold text-verde-salvia text-xl mb-2">R$ 420,00</div>
+                        <p class="text-sm text-marrom-madeira/70 mb-6 flex-grow">Equivalente a 6 pacotes de fralda.</p>
+                        <button onclick="openPixModal('Combo Fralda 03 (R$ 420,00)')" class="w-full bg-verde-salvia text-white font-medium py-3 rounded-xl btn-hover">Presentear</button>
+                    </div>
+
+                    <!-- Combo 4 -->
+                    <div class="bg-white rounded-[2rem] p-6 card-shadow flex flex-col items-center text-center border-t-4 border-rosa-antigo relative overflow-hidden group">
+                        <div class="w-32 h-32 rounded-xl overflow-hidden mb-4 shadow-sm group-hover:scale-105 transition-transform">
+                            <img src="https://drive.google.com/thumbnail?id=1A3bn_mxJABTNPpqwsLv7a1jXf1MpcgO2&sz=w400" referrerpolicy="no-referrer" alt="Combo 4" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-title text-xl font-semibold mb-1">Combo Fralda 04</h4>
+                        <div class="font-bold text-verde-salvia text-xl mb-2">R$ 560,00</div>
+                        <p class="text-sm text-marrom-madeira/70 mb-6 flex-grow">Equivalente a 8 pacotes de fralda.</p>
+                        <button onclick="openPixModal('Combo Fralda 04 (R$ 560,00)')" class="w-full bg-verde-salvia text-white font-medium py-3 rounded-xl btn-hover">Presentear</button>
+                    </div>
+
+                    <!-- Combo 5 (Cor corrigida para verde-salvia) -->
+                    <div class="bg-white rounded-[2rem] p-6 card-shadow flex flex-col items-center text-center border-t-4 border-rosa-antigo relative overflow-hidden group md:col-span-2 lg:col-span-1">
+                        <div class="w-32 h-32 rounded-xl overflow-hidden mb-4 shadow-sm group-hover:scale-105 transition-transform">
+                            <img src="https://drive.google.com/thumbnail?id=1ZVWuDjxItgKiSKJ8xRBBquuj1EsiXXpP&sz=w400" referrerpolicy="no-referrer" alt="Combo 5" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-title text-xl font-semibold mb-1">Combo Fralda 05 <span class="block text-sm font-sans font-normal text-marrom-madeira/60">(Super Combo)</span></h4>
+                        <div class="font-bold text-verde-salvia text-xl mb-2">R$ 700,00</div>
+                        <p class="text-sm text-marrom-madeira/70 mb-6 flex-grow">Equivalente a 10 pacotes de fralda (5 para cada bebê).</p>
+                        <button onclick="openPixModal('Combo Fralda 05 (R$ 700,00)')" class="w-full bg-verde-salvia text-white font-medium py-3 rounded-xl btn-hover">Presentear</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-title text-2xl text-center mb-8 flex items-center justify-center gap-3 mt-16">
+                    <i class="ph ph-heart text-verde-salvia"></i>
+                    Contribuições Especiais
+                </h3>
+                <p class="text-center text-marrom-madeira/80 mb-10 max-w-2xl mx-auto">Descreva que você pode ajudar conforme desejar com os presentes abaixo:</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                    
+                    <!-- 2 Berços -->
+                    <div class="bg-bege-linho bg-paper-texture rounded-[2rem] p-6 card-shadow flex items-center gap-6 group">
+                        <div class="w-24 h-24 bg-white rounded-2xl flex-shrink-0 flex items-center justify-center shadow-sm overflow-hidden">
+                            <img src="https://drive.google.com/thumbnail?id=1KQXtiPB3DB2nwB54JE5X4yaFRDH3ExDy&sz=w400" referrerpolicy="no-referrer" alt="Cota Berços" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-grow">
+                            <h4 class="font-title text-lg font-semibold mb-1">Cota 2 berços</h4>
+                            <div class="font-bold text-verde-salvia mb-2">R$ 600,00</div>
+                            <button onclick="openPixModal('Cota: 2 berços (R$ 600,00)')" class="text-sm bg-white text-marrom-madeira px-4 py-2 rounded-lg font-medium btn-hover border border-marrom-madeira/10">Contribuir</button>
+                        </div>
+                    </div>
+
+                    <!-- Poltrona -->
+                    <div class="bg-bege-linho bg-paper-texture rounded-[2rem] p-6 card-shadow flex items-center gap-6 group">
+                        <div class="w-24 h-24 bg-white rounded-2xl flex-shrink-0 flex items-center justify-center shadow-sm overflow-hidden">
+                            <img src="https://drive.google.com/thumbnail?id=1QtED5Mvg94Ofj76qcwIlfP33NetIGhzP&sz=w400" referrerpolicy="no-referrer" alt="Cota Poltrona" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-grow">
+                            <h4 class="font-title text-lg font-semibold mb-1">Cota poltrona de amamentação</h4>
+                            <div class="font-bold text-verde-salvia mb-2">R$ 300,00</div>
+                            <button onclick="openPixModal('Cota: Poltrona de amamentação (R$ 300,00)')" class="text-sm bg-white text-marrom-madeira px-4 py-2 rounded-lg font-medium btn-hover border border-marrom-madeira/10">Contribuir</button>
+                        </div>
+                    </div>
+
+                    <!-- Carrinho Duplo -->
+                    <div class="bg-bege-linho bg-paper-texture rounded-[2rem] p-6 card-shadow flex items-center gap-6 group">
+                        <div class="w-24 h-24 bg-white rounded-2xl flex-shrink-0 flex items-center justify-center shadow-sm overflow-hidden">
+                            <img src="https://drive.google.com/thumbnail?id=1vqywaqs_lF8KY6ibXmEqCgo5dwtNGSNH&sz=w400" referrerpolicy="no-referrer" alt="Cota Carrinho Duplo" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-grow">
+                            <h4 class="font-title text-lg font-semibold mb-1">Cota carrinho duplo</h4>
+                            <div class="font-bold text-verde-salvia mb-2">R$ 550,00</div>
+                            <button onclick="openPixModal('Cota: Carrinho duplo (R$ 550,00)')" class="text-sm bg-white text-marrom-madeira px-4 py-2 rounded-lg font-medium btn-hover border border-marrom-madeira/10">Contribuir</button>
+                        </div>
+                    </div>
+
+                    <!-- Bebês Conforto -->
+                    <div class="bg-bege-linho bg-paper-texture rounded-[2rem] p-6 card-shadow flex items-center gap-6 group">
+                        <div class="w-24 h-24 bg-white rounded-2xl flex-shrink-0 flex items-center justify-center shadow-sm overflow-hidden">
+                            <img src="https://drive.google.com/thumbnail?id=1G8IaYnH-56NXHX_eVs92vWxoPkAtja6B&sz=w400" referrerpolicy="no-referrer" alt="Cota Bebês Conforto" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-grow">
+                            <h4 class="font-title text-lg font-semibold mb-1">Cota 2 bebês conforto</h4>
+                            <div class="font-bold text-verde-salvia mb-2">R$ 250,00</div>
+                            <button onclick="openPixModal('Cota: 2 bebês conforto (R$ 250,00)')" class="text-sm bg-white text-marrom-madeira px-4 py-2 rounded-lg font-medium btn-hover border border-marrom-madeira/10">Contribuir</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="mt-auto py-10 text-center relative z-10 border-t border-marrom-madeira/10">
+        <h3 class="font-script text-5xl text-rosa-antigo mb-2">Muito Obrigado!</h3>
+        <p class="text-sm text-marrom-madeira/60">Mal podemos esperar para celebrar com vocês.</p>
+        <p class="text-xs text-marrom-madeira/40 mt-6">Antonela & Victória | 2026</p>
+    </footer>
+
+    <!-- Modal Pix -->
+    <div id="pixModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl relative transform scale-95 transition-transform duration-300 max-h-[90vh] overflow-y-auto" id="pixModalContent">
+            
+            <button onclick="closePixModal()" class="absolute top-4 right-4 text-marrom-madeira/40 hover:text-rosa-antigo transition-colors">
+                <i class="ph ph-x-circle text-2xl"></i>
+            </button>
+
+            <div class="text-center mb-6 mt-2">
+                <div class="w-16 h-16 bg-verde-salvia/10 text-verde-salvia rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
+                    <i class="ph ph-currency-circle-dollar"></i>
+                </div>
+                <h3 class="font-title text-2xl text-marrom-madeira mb-2">Presentear com Amor</h3>
+                <p class="text-sm text-marrom-madeira/70">Você escolheu: <strong id="modalGiftName" class="text-rosa-antigo block mt-1"></strong></p>
+            </div>
+
+            <div class="bg-off-white rounded-xl p-5 border border-bege-linho text-center space-y-5">
+                
+                <div>
+                    <p class="text-sm text-marrom-madeira/80 mb-3 font-medium">Escaneie o QR Code:</p>
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=00391400088" alt="QR Code Pix" class="mx-auto rounded-lg shadow-sm border border-marrom-madeira/20 w-32 h-32">
+                </div>
+
+                <div class="w-full h-px bg-marrom-madeira/10"></div>
+
+                <div>
+                    <p class="text-sm text-marrom-madeira/80 mb-2 font-medium">Ou utilize o Copia e Cola:</p>
+                    <div class="bg-white p-3 rounded-lg border border-verde-salvia/30 font-mono text-sm text-marrom-madeira break-all select-all flex items-center justify-center gap-2 mb-3">
+                        <span id="pixKey" class="text-center">003.914.000-88</span>
+                    </div>
+                    
+                    <button onclick="copyPix()" class="w-full bg-verde-salvia text-white font-medium py-3 rounded-xl btn-hover flex items-center justify-center gap-2">
+                        <i class="ph ph-copy"></i>
+                        Copiar Chave Pix
+                    </button>
+                </div>
+            </div>
+            
+            <p class="text-xs text-center mt-5 text-marrom-madeira/50">Por favor, se possível, coloque o seu nome na mensagem do Pix para que possamos agradecer depois! 💕</p>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-marrom-madeira text-white px-6 py-3 rounded-full shadow-lg flex items-center gap-3 z-50 hidden opacity-0 transition-opacity">
+        <i class="ph ph-check-circle text-verde-salvia text-xl"></i>
+        <span class="text-sm font-medium">Chave Pix copiada com sucesso!</span>
+    </div>
+
+    <script>
+        const modal = document.getElementById('pixModal');
+        const modalContent = document.getElementById('pixModalContent');
+        const giftNameEl = document.getElementById('modalGiftName');
+        const toast = document.getElementById('toast');
+        
+        const PIX_KEY_MOCK = "003.914.000-88"; 
+
+        function openPixModal(giftName) {
+            giftNameEl.textContent = giftName;
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePixModal() {
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+
+        function copyPix() {
+            try {
+                const textArea = document.createElement("textarea");
+                textArea.value = PIX_KEY_MOCK;
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                showToast();
+            } catch (err) {
+                console.error('Falha ao copiar', err);
+            }
+        }
+
+        function showToast() {
+            toast.classList.remove('hidden');
+            toast.classList.remove('toast-exit');
+            toast.classList.add('toast-enter');
+            
+            setTimeout(() => {
+                toast.classList.remove('opacity-0');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.remove('toast-enter');
+                toast.classList.add('toast-exit');
+                
+                setTimeout(() => {
+                    toast.classList.add('hidden');
+                    toast.classList.remove('toast-exit');
+                }, 500);
+            }, 3000);
+        }
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closePixModal();
+            }
+        });
+    </script>
+</body>
+</html>
